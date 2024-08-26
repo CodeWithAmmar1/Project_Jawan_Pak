@@ -4,6 +4,6 @@ here is my project in which i made jawan pakistan management system, where i use
 
 
 
+![image](https://github.com/user-attachments/assets/865d9a98-688c-4779-a4a8-8f1372bfd304)
 
-![image](https://github.com/user-attachments/assets/9299ab1a-4927-4857-8b29-d3d41bf690a8)
 
