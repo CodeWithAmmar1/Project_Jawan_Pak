@@ -1,9 +1,6 @@
 import 'dart:io';
 
-void adminLogin(
-    List<Map<String, String>> users,
-    List<Map<String, String>> usersInfo,
-    String adminUsername,
+void adminLogin(List<Map<String, String>> usersInfo, String adminUsername,
     String adminPassword) {
   stdout.write("Enter admin username: ");
   String? username = stdin.readLineSync();
@@ -13,28 +10,27 @@ void adminLogin(
 
   if (username == adminUsername && password == adminPassword) {
     print("Admin login successful.");
-    adminMenu(users, usersInfo);
+    adminMenu(usersInfo);
   } else {
     print("Invalid admin credentials.");
   }
 }
 
-void adminMenu(
-    List<Map<String, String>> users, List<Map<String, String>> usersInfo) {
+void adminMenu(List<Map<String, String>> usersInfo) {
   while (true) {
-    print("\n1. View All Users");
-    print("2. Add User");
-    print("3. Delete User");
+    print("\n1. View All User Info");
+    print("2. Add User Info");
+    print("3. Delete User Info");
     print("4. Exit");
     stdout.write("Choose an option: ");
     String? choice = stdin.readLineSync();
 
     if (choice == '1') {
-      viewAllUsers(users, usersInfo);
+      viewAllUserInfo(usersInfo);
     } else if (choice == '2') {
-      addUser(users);
+      addUserInfo(usersInfo);
     } else if (choice == '3') {
-      deleteUser(users);
+      deleteUserInfo(usersInfo);
     } else if (choice == '4') {
       print("Exiting Admin Menu...");
       break;
@@ -44,58 +40,58 @@ void adminMenu(
   }
 }
 
-void viewAllUsers(
-    List<Map<String, String>> users, List<Map<String, String>> usersInfo) {
-  if (users.isEmpty) {
-    print("No users have signed up yet.");
+void viewAllUserInfo(List<Map<String, String>> usersInfo) {
+  if (usersInfo.isEmpty) {
+    print("No user info available.");
   } else {
-    print("\nRegistered Users:");
-    for (int i = 0; i < users.length; i++) {
+    print("\nUser Information:");
+    for (int i = 0; i < usersInfo.length; i++) {
       print(
-          "${i + 1}. Username: ${users[i]['username']}, Password: ${users[i]['password']}");
-
-      if (i < usersInfo.length) {
-        print(
-            "${i + 1}. Username: ${usersInfo[i]['username']}, User Number: ${usersInfo[i]['Number']}, User Email: ${usersInfo[i]['Email']}");
-      }
+          "${i + 1}. Username: ${usersInfo[i]['username']}, User Number: ${usersInfo[i]['Number']}, User Email: ${usersInfo[i]['Email']}");
     }
   }
 }
 
-void addUser(List<Map<String, String>> users) {
+void addUserInfo(List<Map<String, String>> usersInfo) {
   stdout.write("Enter new username: ");
   String? username = stdin.readLineSync();
 
-  stdout.write("Enter new password: ");
-  String? password = stdin.readLineSync();
+  stdout.write("Enter user number: ");
+  String? number = stdin.readLineSync();
+
+  stdout.write("Enter user email: ");
+  String? email = stdin.readLineSync();
 
   if (username != null &&
-      password != null &&
+      number != null &&
+      email != null &&
       username.isNotEmpty &&
-      password.isNotEmpty) {
-    bool userExists = users.any((user) => user['username'] == username);
+      number.isNotEmpty &&
+      email.isNotEmpty) {
+    bool userExists = usersInfo.any((user) => user['username'] == username);
 
     if (userExists) {
       print("Username already exists. Please choose a different username.");
     } else {
-      users.add({'username': username, 'password': password});
-      print("User added successfully.");
+      usersInfo.add({'username': username, 'Number': number, 'Email': email});
+      print("User info added successfully.");
     }
   } else {
     print("All fields are required. Please try again.");
   }
 }
 
-void deleteUser(List<Map<String, String>> users) {
+void deleteUserInfo(List<Map<String, String>> usersInfo) {
   stdout.write("Enter username to delete: ");
   String? usernameToDelete = stdin.readLineSync();
 
   if (usernameToDelete != null && usernameToDelete.isNotEmpty) {
-    bool userExists = users.any((user) => user['username'] == usernameToDelete);
+    bool userExists =
+        usersInfo.any((user) => user['username'] == usernameToDelete);
 
     if (userExists) {
-      users.removeWhere((user) => user['username'] == usernameToDelete);
-      print("User '$usernameToDelete' deleted successfully.");
+      usersInfo.removeWhere((user) => user['username'] == usernameToDelete);
+      print("User info for '$usernameToDelete' deleted successfully.");
     } else {
       print("User not found.");
     }
