@@ -81,5 +81,5 @@ class User {
     } else {
       print("\nSorry, invalid option or input.");
     }
-  }
+  } 
 }
