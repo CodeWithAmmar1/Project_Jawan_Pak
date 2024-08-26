@@ -32,7 +32,7 @@ void main() {
         currentUser.userPage(usersInfo);
       }
     } else if (choice == '3') {
-      adminLogin(users, usersInfo, adminUsername, adminPassword);
+      adminLogin(usersInfo, adminUsername, adminPassword);
     } else if (choice == '4') {
       print("Exiting...");
       break;
